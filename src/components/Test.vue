@@ -2,8 +2,8 @@
     <div>
         <H3>{{ msg }}</H3>
         <hr/>
-        <input type="text"/>
-        <input type="submit" name="" id="">
+        <input type="text" id="searchbar" v-model="search"/>
+        <button v-on:click="find">search</button>
        <table class="table">
         <thead>
         <tr>
@@ -45,7 +45,8 @@ export default{
     },
     data(){
          return{
-            info: null
+            info: null,
+            search:""
          }
     },
 
@@ -53,6 +54,16 @@ export default{
   {
     axios.get("http://localhost:8080/api/projects")
     .then((res)=>(this.info=res.data));
+  },
+  methods:{
+    find(){
+        var x = this.search
+        axios.get("http://localhost:8080/api/projects?search="+x)
+    .then((res)=>(this.info=res.data));
+    }
+  
+
+
   }
     
     
